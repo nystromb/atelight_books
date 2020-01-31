@@ -1,9 +1,10 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
-const { makeExecutableSchema } = require('graphql-tools');
-import 'reflect-metadata'
-import {createConnection, Connection, getConnectionManager, getManager} from "typeorm";
+import 'reflect-metadata';
+import express from 'express';
+import bodyParser from 'body-parser';
+import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
+import { makeExecutableSchema } from 'graphql-tools';
+import { createConnection, getManager } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 const getConnection = async function() {
   const connection = await createConnection({
@@ -17,9 +18,6 @@ const getConnection = async function() {
 
   return connection;
 }
-
-
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
 
 @Entity()
 export class Book {
@@ -97,4 +95,5 @@ const start = async () => {
     console.log('Go to http://localhost:3000/graphiql to run queries!');
   });
 }
+
 start()
